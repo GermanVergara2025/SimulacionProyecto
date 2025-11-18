@@ -79,25 +79,27 @@ public class BowlingBallController : MonoBehaviour
         state = BallState.Aiming;
     }
 
-    private void Update()
+  private void Update()
+{
+    float dt = Time.deltaTime;
+
+    Debug.Log("Estado bola: " + state);
+
+    switch (state)
     {
-        float dt = Time.deltaTime;
+        case BallState.Aiming:
+            HandleAiming(dt);
+            break;
 
-        switch (state)
-        {
-            case BallState.Aiming:
-                HandleAiming(dt);
-                break;
+        case BallState.Launched:
+            HandleLaunched(dt);
+            break;
 
-            case BallState.Launched:
-                HandleLaunched(dt);
-                break;
-
-            case BallState.Stopped:
-                // Nada, el TutorialManager decidirá qué hacer.
-                break;
-        }
+        case BallState.Stopped:
+            break;
     }
+}
+
 
     /// <summary>
     /// Lógica mientras el jugador está preparando el lanzamiento (Aiming).
