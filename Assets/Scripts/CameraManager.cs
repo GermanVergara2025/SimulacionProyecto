@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Controla la cámara para el nivel tutorial:
-/// - Modo primera persona: anclada detrás de la bola (punto fijo).
-/// - Modo seguimiento (tercera persona): sigue a la bola suavemente desde atrás y arriba.
-/// </summary>
 public class CameraManager : MonoBehaviour
 {
     public enum CameraMode
@@ -14,28 +9,33 @@ public class CameraManager : MonoBehaviour
     }
 
     [Header("Referencias")]
-    [Tooltip("Transform de la bola.")]
     public Transform ballTransform;
-    [Tooltip("Punto de anclaje para primera persona (empty detrás de la bola).")]
     public Transform firstPersonAnchor;
-    [Tooltip("Referencia al TutorialManager para notificar cambios de cámara.")]
     public TutorialManager tutorialManager;
 
     [Header("Ajustes de seguimiento")]
-    [Tooltip("Offset relativo a la bola en modo seguimiento (tercera persona).")]
-    public Vector3 followOffset = new Vector3(0f, 1.5f, -4f);
-    [Tooltip("Velocidad de interpolación de posición.")]
+    public Vector3 followOffset = new Vector3(0f, 2f, -6f);
     public float positionLerpSpeed = 5f;
-    [Tooltip("Velocidad de interpolación de rotación.")]
     public float rotationLerpSpeed = 5f;
 
     private CameraMode currentMode = CameraMode.FirstPerson;
 
+    private void Start()
+    {
+        // Al iniciar, dejamos la cámara pegada al anchor de primera persona
+        if (firstPersonAnchor != null)
+        {
+            transform.position = firstPersonAnchor.position;
+            transform.rotation = firstPersonAnchor.rotation;
+            currentMode = CameraMode.FirstPerson;
+        }
+    }
+
     private void LateUpdate()
     {
-        float dt = Time.deltaTime;
-
         if (ballTransform == null) return;
+
+        float dt = Time.deltaTime;
 
         switch (currentMode)
         {
@@ -62,13 +62,12 @@ public class CameraManager : MonoBehaviour
 
     private void UpdateFollowBall(float dt)
     {
-        // Posición deseada en tercera persona: atrás y arriba de la bola según su orientación
+        // Offset detrás de la bola según su orientación
         Vector3 offsetWorld = ballTransform.right * followOffset.x
                             + Vector3.up * followOffset.y
                             + ballTransform.forward * followOffset.z;
 
         Vector3 targetPos = ballTransform.position + offsetWorld;
-        // Miramos hacia la bola
         Quaternion targetRot = Quaternion.LookRotation(ballTransform.position - targetPos, Vector3.up);
 
         transform.position = Vector3.Lerp(transform.position, targetPos, positionLerpSpeed * dt);
@@ -78,12 +77,35 @@ public class CameraManager : MonoBehaviour
     public void SwitchToFirstPersonMode()
     {
         currentMode = CameraMode.FirstPerson;
+
+        // Al cambiar, nos “pegamos” inmediatamente al anchor
+        if (firstPersonAnchor != null)
+        {
+            transform.position = firstPersonAnchor.position;
+            transform.rotation = firstPersonAnchor.rotation;
+        }
+
         tutorialManager?.NotifyCameraFirstPerson();
     }
 
     public void SwitchToFollowBallMode()
     {
         currentMode = CameraMode.FollowBall;
+
+        if (ballTransform != null)
+        {
+            // Hacemos un “snap” detrás de la bola para evitar acercamientos raros
+            Vector3 offsetWorld = ballTransform.right * followOffset.x
+                                + Vector3.up * followOffset.y
+                                + ballTransform.forward * followOffset.z;
+
+            Vector3 snapPos = ballTransform.position + offsetWorld;
+            Quaternion snapRot = Quaternion.LookRotation(ballTransform.position - snapPos, Vector3.up);
+
+            transform.position = snapPos;
+            transform.rotation = snapRot;
+        }
+
         tutorialManager?.NotifyCameraFollowBall();
     }
 

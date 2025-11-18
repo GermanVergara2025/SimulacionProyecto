@@ -142,14 +142,15 @@ public class BowlingBallController : MonoBehaviour
             isChargingForce = true;
         }
 
-        if (isChargingForce && Input.GetKey(KeyCode.Space))
-        {
-            currentForce += forceChargeSpeed * dt;
-            currentForce = Mathf.Clamp(currentForce, 0f, maxLaunchForce);
+if (isChargingForce && Input.GetKey(KeyCode.Space))
+{
+    currentForce += forceChargeSpeed * dt;
+    currentForce = Mathf.Clamp(currentForce, 0f, maxLaunchForce);
 
-            // Notificamos al tutorial que el jugador ya empezó a cargar fuerza.
-            tutorialManager?.NotifyForceCharging(currentForce);
-        }
+    // Notificamos al tutorial y le pasamos también la fuerza máxima
+    tutorialManager?.NotifyForceCharging(currentForce, maxLaunchForce);
+}
+
 
         // 4) Lanzamiento (soltar ESPACIO)
         if (isChargingForce && Input.GetKeyUp(KeyCode.Space))
@@ -179,6 +180,13 @@ public class BowlingBallController : MonoBehaviour
 
         // Notificamos al tutorial que la bola fue lanzada.
         tutorialManager?.NotifyBallLaunched();
+
+// Reseteamos indicador de potencia
+if (tutorialManager != null && tutorialManager.uiManager != null)
+{
+    tutorialManager.uiManager.ResetPowerIndicator();
+}
+
 
         // Reseteamos la fuerza para un futuro turno (si quieres).
         currentForce = 0f;

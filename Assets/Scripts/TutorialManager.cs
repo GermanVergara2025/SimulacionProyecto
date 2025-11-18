@@ -157,14 +157,23 @@ public class TutorialManager : MonoBehaviour
     /// <summary>
     /// Llamado por BowlingBallController cuando el jugador empieza a cargar fuerza.
     /// </summary>
-    public void NotifyForceCharging(float currentForce)
+ public void NotifyForceCharging(float currentForce, float maxForce)
+{
+    // Actualizamos la barra de potencia (0–1)
+    if (uiManager != null && maxForce > 0f)
     {
-        if (currentStep == TutorialStep.ChargeForce && !hasChargedForce && currentForce > 0.1f)
-        {
-            hasChargedForce = true;
-            AdvanceToStep(TutorialStep.LaunchBall);
-        }
+        float normalized = currentForce / maxForce;
+        uiManager.UpdatePowerIndicator(normalized);
     }
+
+    // Lógica de paso del tutorial
+    if (currentStep == TutorialStep.ChargeForce && !hasChargedForce && currentForce > 0.1f)
+    {
+        hasChargedForce = true;
+        AdvanceToStep(TutorialStep.LaunchBall);
+    }
+}
+
 
     /// <summary>
     /// Llamado por BowlingBallController cuando el jugador suelta ESPACIO y lanza la bola.

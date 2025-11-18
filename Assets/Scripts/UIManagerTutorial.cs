@@ -26,16 +26,45 @@ public class UIManagerTutorial : MonoBehaviour
     [Header("Nombre de la escena del Nivel 1")]
     public string level1SceneName = "Nivel1";
 
-    private void Start()
-    {
-        if (instructionPanel != null) instructionPanel.SetActive(true);
-        if (completionPanel != null) completionPanel.SetActive(false);
+[Header("Indicador de potencia")]
+public Slider powerSlider;
 
-        if (goToLevel1Button != null)
-        {
-            goToLevel1Button.onClick.AddListener(OnGoToLevel1Clicked);
-        }
+private void Start()
+{
+    if (instructionPanel != null) instructionPanel.SetActive(true);
+    if (completionPanel != null) completionPanel.SetActive(false);
+
+    if (goToLevel1Button != null)
+    {
+        goToLevel1Button.onClick.AddListener(OnGoToLevel1Clicked);
     }
+
+    // La barra de potencia empieza vacía
+    if (powerSlider != null)
+    {
+        powerSlider.minValue = 0f;
+        powerSlider.maxValue = 1f;
+        powerSlider.value = 0f;
+    }
+}
+
+public void UpdatePowerIndicator(float normalizedPower)
+{
+    if (powerSlider != null)
+    {
+        // normalizedPower debe venir entre 0 y 1
+        powerSlider.value = Mathf.Clamp01(normalizedPower);
+    }
+}
+
+public void ResetPowerIndicator()
+{
+    if (powerSlider != null)
+    {
+        powerSlider.value = 0f;
+    }
+}
+
 
     public void ShowInstruction(string message)
     {
