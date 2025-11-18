@@ -48,10 +48,17 @@ public class TutorialManager : MonoBehaviour
     private float cameraFollowTimer = 0f;
     private int pinsHitCount = 0;
 
-    private void Start()
+  private void Start()
+{
+    SetStep(TutorialStep.MoveLaterally);
+
+    // Inicializar contador de pines en la UI
+    if (uiManager != null)
     {
-        SetStep(TutorialStep.MoveLaterally);
+        uiManager.UpdatePinCount(0, pins.Count);
     }
+}
+
 
     private void Update()
     {
@@ -220,7 +227,11 @@ public class TutorialManager : MonoBehaviour
     public void NotifyPinHit(PinController pin)
     {
         pinsHitCount++;
-
+  // Actualizamos el contador visual
+    if (uiManager != null)
+    {
+        uiManager.UpdatePinCount(pinsHitCount, pins.Count);
+    }
         // Si ya estamos en la fase de observar pines, y se cumple la cantidad requerida, completamos.
         if (currentStep == TutorialStep.ObservePinsHit && pinsHitCount >= requiredPinsHit)
         {

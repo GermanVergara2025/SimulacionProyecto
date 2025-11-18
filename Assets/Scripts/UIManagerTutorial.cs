@@ -22,10 +22,10 @@ public class UIManagerTutorial : MonoBehaviour
     public TextMeshProUGUI completionText;
     [Tooltip("Botón 'Ir al Nivel 1'.")]
     public Button goToLevel1Button;
-
+[Header("Contador de pines")]
+public TextMeshProUGUI pinCountText;
     [Header("Nombre de la escena del Nivel 1")]
     public string level1SceneName = "Nivel1";
-
 [Header("Indicador de potencia")]
 public Slider powerSlider;
 
@@ -40,14 +40,17 @@ private void Start()
         goToLevel1Button.onClick.AddListener(OnGoToLevel1Clicked);
     }
 
-    // La barra de potencia empieza vacía
     if (powerSlider != null)
     {
         powerSlider.minValue = 0f;
         powerSlider.maxValue = 1f;
         powerSlider.value = 0f;
     }
+
+    // Inicializar contador de pines si tenemos referencia al TutorialManager
+    // (esto también se puede hacer desde el TutorialManager en Start)
 }
+
 
 public void UpdatePowerIndicator(float normalizedPower)
 {
@@ -65,6 +68,14 @@ public void ResetPowerIndicator()
         powerSlider.value = 0f;
     }
 }
+
+public void UpdatePinCount(int current, int total)
+{
+    if (pinCountText == null) return;
+
+    pinCountText.text = $"Pines derribados: {current} / {total}";
+}
+
 
 
     public void ShowInstruction(string message)
