@@ -246,6 +246,66 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &273808069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273808071}
+  - component: {fileID: 273808070}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &273808070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273808069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587e4df0fc92dec469cb17ac0b10680d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
+  ballController: {fileID: 1170676221}
+  cameraManager: {fileID: 858821545}
+  uiManager: {fileID: 0}
+  pins:
+  - {fileID: 510139283}
+  - {fileID: 510139282}
+  - {fileID: 510139281}
+  - {fileID: 510139280}
+  - {fileID: 510139279}
+  - {fileID: 292900970}
+  - {fileID: 1660683199}
+  - {fileID: 520745307}
+  - {fileID: 798694435}
+  - {fileID: 1771261247}
+  requiredCameraFollowTime: 2
+  requiredPinsHit: 1
+--- !u!4 &273808071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273808069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.36755, y: 0, z: 315.4504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &292900970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,3 +989,4 @@ SceneRoots:
   - {fileID: 510139268}
   - {fileID: 1170676224}
   - {fileID: 850416210}
+  - {fileID: 273808071}
