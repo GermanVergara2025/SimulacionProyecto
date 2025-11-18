@@ -86,21 +86,22 @@ public class CameraManager : MonoBehaviour
         tutorialManager?.NotifyCameraFirstPerson();
     }
 
-    public void SwitchToFollowBallMode()
+public void SwitchToFollowBallMode()
+{
+    // Solo cambiamos el modo, NO movemos la cámara de golpe.
+    currentMode = CameraMode.FollowBall;
+
+    if (ballTransform != null)
     {
-        currentMode = CameraMode.FollowBall;
-
-        if (ballTransform != null)
-        {
-            Vector3 snapPos = ballTransform.position + followOffset;
-            Quaternion snapRot = Quaternion.LookRotation(ballTransform.position - snapPos, Vector3.up);
-
-            transform.position = snapPos;
-            transform.rotation = snapRot;
-        }
-
-        tutorialManager?.NotifyCameraFollowBall();
+        // Tomamos el offset ACTUAL entre la cámara y la bola.
+        // Así la cámara se queda donde está y solo seguirá a la bola
+        // manteniendo esa distancia.
+        followOffset = transform.position - ballTransform.position;
     }
+
+    tutorialManager?.NotifyCameraFollowBall();
+}
+
 
     public CameraMode GetCameraMode()
     {
