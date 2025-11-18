@@ -140,8 +140,17 @@ public Transform visualModel;
             currentDirectionAngle += dirSign * directionChangeSpeed * Time.deltaTime;
             currentDirectionAngle = Mathf.Clamp(currentDirectionAngle, -maxDirectionAngle, maxDirectionAngle);
 
-            // Aplicamos la rotación a la bola para visualizar la dirección
-           visualModel.rotation = Quaternion.Euler(0f, currentDirectionAngle, 0f);
+   // Rotamos el root de la bola en Y para que la cámara (que usa firstPersonAnchor) también gire
+transform.rotation = Quaternion.Euler(0f, currentDirectionAngle, 0f);
+
+// El modelo visual puede quedarse con rotación local identidad,
+// porque en rodadura ya lo estamos orientando según la velocidad.
+// Si quieres mantenerlo alineado al root en Aiming:
+if (visualModel != null)
+{
+    visualModel.localRotation = Quaternion.identity;
+}
+
 
 
             // Notificamos al tutorial que ya ajustó la dirección
