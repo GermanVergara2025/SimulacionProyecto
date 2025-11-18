@@ -29,6 +29,7 @@ public class UIManagerTutorial : MonoBehaviour
 [Header("Indicador de potencia")]
 public Slider powerSlider;
 
+
 private void Start()
 {
     if (instructionPanel != null) instructionPanel.SetActive(true);

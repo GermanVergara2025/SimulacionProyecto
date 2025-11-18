@@ -13,8 +13,9 @@ public class CameraManager : MonoBehaviour
     public Transform firstPersonAnchor;
     public TutorialManager tutorialManager;
 
-    [Header("Ajustes de seguimiento")]
-    public Vector3 followOffset = new Vector3(0f, 2f, -6f);
+    [Header("Ajustes de seguimiento (world space)")]
+    [Tooltip("Offset global respecto a la bola en modo seguimiento (tercera persona).")]
+    public Vector3 followOffset = new Vector3(0f, 3f, -8f);
     public float positionLerpSpeed = 5f;
     public float rotationLerpSpeed = 5f;
 
@@ -22,7 +23,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        // Al iniciar, dejamos la cámara pegada al anchor de primera persona
+        // Empezamos en primera persona bien colocados
         if (firstPersonAnchor != null)
         {
             transform.position = firstPersonAnchor.position;
@@ -62,12 +63,10 @@ public class CameraManager : MonoBehaviour
 
     private void UpdateFollowBall(float dt)
     {
-        // Offset detrás de la bola según su orientación
-        Vector3 offsetWorld = ballTransform.right * followOffset.x
-                            + Vector3.up * followOffset.y
-                            + ballTransform.forward * followOffset.z;
+        // Offset en coordenadas MUNDIALES, no dependiendo de la rotación de la bola
+        Vector3 targetPos = ballTransform.position + followOffset;
 
-        Vector3 targetPos = ballTransform.position + offsetWorld;
+        // Miramos hacia la bola
         Quaternion targetRot = Quaternion.LookRotation(ballTransform.position - targetPos, Vector3.up);
 
         transform.position = Vector3.Lerp(transform.position, targetPos, positionLerpSpeed * dt);
@@ -78,7 +77,6 @@ public class CameraManager : MonoBehaviour
     {
         currentMode = CameraMode.FirstPerson;
 
-        // Al cambiar, nos “pegamos” inmediatamente al anchor
         if (firstPersonAnchor != null)
         {
             transform.position = firstPersonAnchor.position;
@@ -94,12 +92,7 @@ public class CameraManager : MonoBehaviour
 
         if (ballTransform != null)
         {
-            // Hacemos un “snap” detrás de la bola para evitar acercamientos raros
-            Vector3 offsetWorld = ballTransform.right * followOffset.x
-                                + Vector3.up * followOffset.y
-                                + ballTransform.forward * followOffset.z;
-
-            Vector3 snapPos = ballTransform.position + offsetWorld;
+            Vector3 snapPos = ballTransform.position + followOffset;
             Quaternion snapRot = Quaternion.LookRotation(ballTransform.position - snapPos, Vector3.up);
 
             transform.position = snapPos;
