@@ -24,7 +24,7 @@ public class BowlingBallController : MonoBehaviour
 
     [Header("Propiedades de la bola")]
     [Tooltip("Radio aproximado de la bola, para colisiones con los pines.")]
-    public float ballRadius = 0.3f;
+    public float ballRadius = 10.5f;
 
     [Header("Ajustes de movimiento lateral (antes de lanzar)")]
     [Tooltip("Velocidad de movimiento lateral (eje X) mientras apuntas.")]

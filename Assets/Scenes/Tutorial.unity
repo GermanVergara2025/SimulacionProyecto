@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -694,7 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -716,7 +716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -879,7 +879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -1248,7 +1248,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1050
+  far clip plane: 1400
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1276,7 +1276,7 @@ Transform:
   m_GameObject: {fileID: 858821540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -65, y: 65, z: -57}
+  m_LocalPosition: {x: -65, y: 65, z: -292}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1371,7 +1371,7 @@ RectTransform:
   m_GameObject: {fileID: 1068974728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.716, y: 1.716, z: 1.716}
+  m_LocalScale: {x: 0.9272577, y: 0.9272577, z: 0.9272577}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 385960280}
@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -206.07143, y: -91.703, z: -198.12503, w: 0}
+  m_margin: {x: -104.41165, y: -91.703, z: -122.21869, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1588,19 +1588,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BowlingBallController
   tutorialManager: {fileID: 273808070}
   cameraManager: {fileID: 858821545}
-  ballRadius: 0.3
-  lateralSpeed: 10
+  ballRadius: 8.5
+  lateralSpeed: 40
   laneMinX: -108
-  laneMaxX: 108
+  laneMaxX: -22
   maxDirectionAngle: 10
   directionChangeSpeed: 45
-  minLaunchForce: 40
-  maxLaunchForce: 100
-  forceChargeSpeed: 60
+  minLaunchForce: 80
+  maxLaunchForce: 200
+  forceChargeSpeed: 120
   friction: 0.5
   stopSpeedThreshold: 0.02
   laneMinZ: 109
-  laneMaxZ: 900
+  laneMaxZ: 905
   wallBounceFactor: 0.3
 --- !u!23 &1170676222
 MeshRenderer:
@@ -1667,7 +1667,7 @@ Transform:
   m_GameObject: {fileID: 1170676220}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69, y: 9.4, z: 109}
+  m_LocalPosition: {x: -69, y: 9.4, z: -254}
   m_LocalScale: {x: 21.686403, y: 21.686403, z: 21.686403}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -2000,7 +2000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PinController
   ball: {fileID: 1170676221}
   tutorialManager: {fileID: 273808070}
-  pinRadius: 0.2
+  pinRadius: 35.5
   hitForceMultiplier: 0.6
   verticalImpulse: 2
   gravity: 9.81
@@ -2343,7 +2343,7 @@ RectTransform:
   m_GameObject: {fileID: 1910011358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.9964, y: 3.9964, z: 3.9964}
+  m_LocalScale: {x: 2.230271, y: 2.230271, z: 2.230271}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1213919978}

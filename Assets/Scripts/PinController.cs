@@ -6,6 +6,10 @@ using UnityEngine;
 /// - Al ser golpeado, adquiere una velocidad inicial y cae.
 /// - Se aplica una "gravedad" y fricción horizontales manuales.
 /// </summary>
+
+
+
+
 public class PinController : MonoBehaviour
 {
     public enum PinState
@@ -45,6 +49,7 @@ public class PinController : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private bool alreadyHit = false;
+
 
     private void Start()
     {
