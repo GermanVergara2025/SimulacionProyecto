@@ -77,6 +77,7 @@ public Transform visualModel;
     // Permite a otros scripts (pines) leer la velocidad de la bola
     public Vector3 CurrentVelocity => velocity;
 
+
     private void Start()
     {
         // Aseguramos orientación inicial hacia adelante (eje Z)
@@ -185,6 +186,7 @@ if (isChargingForce && Input.GetKey(KeyCode.Space))
 
         velocity = direction * launchForce;
         state = BallState.Launched;
+    AudioManagerTutorial.instance?.PlayBallLaunch();
 
         // Cambiamos la cámara a modo seguimiento.
         cameraManager?.SwitchToFollowBallMode();

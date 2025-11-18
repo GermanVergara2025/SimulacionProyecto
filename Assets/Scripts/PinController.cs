@@ -108,6 +108,8 @@ public class PinController : MonoBehaviour
     {
         if (alreadyHit) return;
         alreadyHit = true;
+AudioManagerTutorial.instance?.PlayPinHit();
+
 
         // Dirección desde la bola hacia el pin
         Vector3 direction = (transform.position - ball.transform.position).normalized;
