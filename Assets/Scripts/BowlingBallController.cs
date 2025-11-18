@@ -24,7 +24,8 @@ public class BowlingBallController : MonoBehaviour
 
     [Header("Propiedades de la bola")]
     [Tooltip("Radio aproximado de la bola, para colisiones con los pines.")]
-    public float ballRadius = 10.5f;
+    public float ballRadius = 8.5f;
+
 
     [Header("Ajustes de movimiento lateral (antes de lanzar)")]
     [Tooltip("Velocidad de movimiento lateral (eje X) mientras apuntas.")]
@@ -62,6 +63,10 @@ public class BowlingBallController : MonoBehaviour
     [Tooltip("Factor de rebote en X al chocar con los límites laterales (0 = se detiene, 1 = rebote perfecto).")]
     public float wallBounceFactor = 0.3f;
 
+[Header("Modelo visual de la bola")]
+[Tooltip("Transform del modelo visual que se rota (por ejemplo, BallVisual). Si se deja vacío, se usa el propio transform.")]
+public Transform visualModel;
+
     // Estado interno
     private BallState state = BallState.Aiming;
     private Vector3 velocity;          // Velocidad actual de la bola.
@@ -77,6 +82,11 @@ public class BowlingBallController : MonoBehaviour
         // Aseguramos orientación inicial hacia adelante (eje Z)
         transform.rotation = Quaternion.identity;
         state = BallState.Aiming;
+    if (visualModel == null)
+        visualModel = transform;
+
+    transform.rotation = Quaternion.identity;
+    state = BallState.Aiming;
     }
 
   private void Update()
@@ -130,7 +140,8 @@ public class BowlingBallController : MonoBehaviour
             currentDirectionAngle = Mathf.Clamp(currentDirectionAngle, -maxDirectionAngle, maxDirectionAngle);
 
             // Aplicamos la rotación a la bola para visualizar la dirección
-            transform.rotation = Quaternion.Euler(0f, currentDirectionAngle, 0f);
+           visualModel.rotation = Quaternion.Euler(0f, currentDirectionAngle, 0f);
+
 
             // Notificamos al tutorial que ya ajustó la dirección
             tutorialManager?.NotifyDirectionAdjusted();
@@ -240,6 +251,32 @@ if (tutorialManager != null && tutorialManager.uiManager != null)
 
         // Aplicamos la posición resultante
         transform.position = pos;
+
+// --- Rotación visual de la bola para simular rodadura ---
+if (velocity.magnitude > 0.001f)
+{
+    // Dirección de movimiento en el plano XZ
+    Vector3 moveDir = velocity.normalized;
+
+    // Eje de giro: perpendicular al movimiento y al eje Y (suelo plano)
+    Vector3 rollAxis = Vector3.Cross(moveDir, Vector3.up);
+
+    // v = w * r  =>  w = v / r
+    float speed = velocity.magnitude;                // velocidad lineal
+    float angularSpeedRad = speed / ballRadius;      // radianes/segundo
+    float angularSpeedDeg = angularSpeedRad * Mathf.Rad2Deg; // grados/segundo
+
+    // Aplicamos rotación alrededor del eje de giro (en el mundo)
+    // Usamos valor POSITIVO; si gira al revés, cambia el signo.
+    // Rotamos SOLO el modelo visual, no el root
+if (visualModel != null)
+{
+    // Cambiamos el signo para que gire en el sentido correcto
+    visualModel.Rotate(rollAxis, -angularSpeedDeg * dt, Space.World);
+}
+
+}
+
 
         // Si la velocidad es muy baja, consideramos que la bola se detuvo.
         if (velocity.magnitude < stopSpeedThreshold)
