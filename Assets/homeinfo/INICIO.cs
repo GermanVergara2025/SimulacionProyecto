@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class INICIO : MonoBehaviour
 {
-    public GameObject panelquestion;
-    public GameObject panelajustes;
+    public GameObject QUESTIONS;
+    public GameObject AJUSTES;
 
     public void StartGame()
     {
@@ -13,18 +13,18 @@ public class INICIO : MonoBehaviour
 
     public void OpenQuestion()
     {
-        panelquestion.SetActive(true);
+        QUESTIONS.SetActive(true);
     }
 
     public void OpenConfig()
     {
-        panelajustes.SetActive(true);
+        AJUSTES.SetActive(true);
     }
 
     public void ClosePanels()
     {
-        panelquestion.SetActive(false);
-        panelajustes.SetActive(false);
+        QUESTIONS.SetActive(false);
+        AJUSTES.SetActive(false);
     }
 }
 
